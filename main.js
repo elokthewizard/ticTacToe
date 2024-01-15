@@ -7,13 +7,26 @@ ticTacToe = (() => {
             getBoard[i] = { value: 0 }
         };
 
-        console.log(getBoard);
+        playerList = [
+            {
+                name: 'player1',
+                gameSymbol: 'X'
+            }
+        ]
 
-        const updateDisplay = ((getBoard) => {
-            return getBoard;
-        });
+        gameController = (() => {
 
-        return { updateDisplay };
+            updateDisplay = () => {
+                console.log(getBoard);
+            };
+
+            playRound = (index) => {
+                getBoard[index].value = playerList[0].gameSymbol;
+                updateDisplay();
+            };
+
+            return { updateDisplay, playRound };
+        })();
 
     })();
-});
+})();
