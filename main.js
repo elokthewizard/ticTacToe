@@ -1,10 +1,18 @@
 ticTacToe = (() => {
+    
     gameboard = (() => {
-        const cells = 9;
-        const getBoard = [];
 
-        for (let i = 0; i < cells; i++) {
-            getBoard[i] = { value: 0 }
+        const cells = 9;
+        const rows = 3;
+        const columns = 3;
+
+        const board = [];
+
+        for (let i = 0; i < rows; i++) {
+            board[i] = []; 
+            for (let j = 0; j < columns; j++) {
+                board[i].push({ value: 0 })
+            }
         };
 
         playerList = [
@@ -21,14 +29,14 @@ ticTacToe = (() => {
         gameController = (() => {
 
             updateDisplay = () => {
-                console.log(getBoard);
+                console.log(board);
             };
 
             let currentPlayer = playerList[0];
 
-            playRound = (index) => {
+            playRound = (x, y) => {
 
-                getBoard[index].value = currentPlayer.gameSymbol;
+                board[x][y].value == 0 && board[x][y] !== playerList[1].gameSymbol ? board[x][y].value = currentPlayer.gameSymbol : false;
 
                 updateDisplay();
 
