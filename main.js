@@ -11,8 +11,12 @@ ticTacToe = (() => {
             {
                 name: 'player1',
                 gameSymbol: 'X'
+            },
+            {
+                name: 'player2',
+                gameSymbol: 'O'
             }
-        ]
+        ];
 
         gameController = (() => {
 
@@ -20,9 +24,21 @@ ticTacToe = (() => {
                 console.log(getBoard);
             };
 
+            let currentPlayer = playerList[0];
+
             playRound = (index) => {
-                getBoard[index].value = playerList[0].gameSymbol;
+
+                getBoard[index].value = currentPlayer.gameSymbol;
+
                 updateDisplay();
+
+                //swapPlayer 
+                (() => {
+                    console.log(currentPlayer)
+                    currentPlayer = currentPlayer.name === 'player1' ? currentPlayer = playerList[1]: currentPlayer = playerList[0];
+                    console.log(currentPlayer)
+                })();
+
             };
 
             return { updateDisplay, playRound };
