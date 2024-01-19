@@ -2,9 +2,7 @@ ticTacToe = (() => {
     
     gameboard = (() => {
 
-        createBoard = (() => {
-
-            const board = [];
+        const board = [];
             const rows = 3;
             const columns = 3;
 
@@ -17,6 +15,8 @@ ticTacToe = (() => {
                 }
             };
 
+        createBoard = (() => {
+
             const newTable = document.createElement("table");
             newTable.setAttribute("id","gameboard");
             document.body.appendChild(newTable);
@@ -28,14 +28,14 @@ ticTacToe = (() => {
             board.forEach((row) => {
                 
                 const newRow = document.createElement('tr');
-                gameTable.appendChild(newRow).setAttribute('listNum', l++);
+                gameTable.appendChild(newRow).setAttribute('list-num', l++);
                 let m = 0;
 
                 row.forEach((cell) => {
                     const newCell = document.createElement('td');
                     newCell.textContent = cell.value;
                     
-                    newRow.appendChild(newCell).setAttribute('cellNum', m++)
+                    newRow.appendChild(newCell).setAttribute('cell-num', m++)
                 })
             })
         })();
@@ -55,18 +55,14 @@ ticTacToe = (() => {
 
             updateDisplay = () => {
                 console.log(board);
-                board.forEach((row) => {
-                    const newRow = document.createElement('tr');
-
-                })
             };
 
             let currentPlayer = playerList[0];
 
             playRound = (x, y) => {
-
-                (board[x][y].value !== playerList[1].gameSymbol && board[x][y].value == 0) ? board[x][y].value = currentPlayer.gameSymbol : console.log('try again');
-
+                //check for valid play
+                //(board[x][y].value !== playerList[1].gameSymbol && board[x][y].value == 0) ? board[x][y].value = currentPlayer.gameSymbol : console.log('try again');
+                board[x][y].value = currentPlayer.gameSymbol;
                 //check win condition
                 (() => { 
                     for (let k = 0; k < board[0].length; k++) {
@@ -126,8 +122,17 @@ ticTacToe = (() => {
 
             };
 
+            addEventListener('click', (e) => {
+                console.log(e.target)
+                if (e.target.value !== 0 && e.target.value !== playerList[1].gameSymbol) {
+                    e.target.value = currentPlayer.gameSymbol
+                }
+                playRound(e.target.getAttribute('cell-num'), e.target.innerText);
+            })
+
             return { updateDisplay, playRound };
         })();
 
     })();
 })();
+
