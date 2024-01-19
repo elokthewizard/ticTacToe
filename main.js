@@ -1,27 +1,45 @@
 ticTacToe = (() => {
     
     gameboard = (() => {
-
-        const cells = 9;
-        const rows = 3;
-        const columns = 3;
-
-        const board = [];
+        
         const winBoard = [
         [{ value: 'X' }, { value: 'X' }, { value: 'X' }],
         [{ value: 'X' }, { value: 'X' }, { value: 'X' }]
         [{ value: 'X' }, { value: 'X' }, { value: 'X' }]
         ]
 
-        for (let i = 0; i < rows; i++) {
-            board[i] = []; 
-            for (let j = 0; j < columns; j++) {
-                board[i].push({ 
-                    value: 0 
-                })
-            }
-        };
+        createBoard = (() => {
 
+            const board = [];
+            const rows = 3;
+            const columns = 3;
+
+            for (let i = 0; i < rows; i++) {
+                board[i] = []; 
+                for (let j = 0; j < columns; j++) {
+                    board[i].push({ 
+                        value: 0 
+                    })
+                }
+            };
+
+            const newTable = document.createElement("table");
+            newTable.setAttribute("id","gameboard");
+            document.body.appendChild(newTable);
+
+            const gameTable = document.getElementById("gameboard");
+
+            board.forEach((row) => {
+                const newRow = document.createElement('tr');
+                gameTable.appendChild(newRow);
+                row.forEach((cell) => {
+                    const newCell = document.createElement('td');
+                    newCell.textContent = cell.value;
+                    newRow.appendChild(newCell)
+                })
+            })
+        })();
+        
         playerList = [
             {
                 name: 'player1',
@@ -37,6 +55,10 @@ ticTacToe = (() => {
 
             updateDisplay = () => {
                 console.log(board);
+                board.forEach((row) => {
+                    const newRow = document.createElement('tr');
+
+                })
             };
 
             let currentPlayer = playerList[0];
