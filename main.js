@@ -1,12 +1,6 @@
 ticTacToe = (() => {
     
     gameboard = (() => {
-        
-        const winBoard = [
-        [{ value: 'X' }, { value: 'X' }, { value: 'X' }],
-        [{ value: 'X' }, { value: 'X' }, { value: 'X' }]
-        [{ value: 'X' }, { value: 'X' }, { value: 'X' }]
-        ]
 
         createBoard = (() => {
 
@@ -29,13 +23,19 @@ ticTacToe = (() => {
 
             const gameTable = document.getElementById("gameboard");
 
+            let l = 0;
+
             board.forEach((row) => {
+                
                 const newRow = document.createElement('tr');
-                gameTable.appendChild(newRow);
+                gameTable.appendChild(newRow).setAttribute('listNum', l++);
+                let m = 0;
+
                 row.forEach((cell) => {
                     const newCell = document.createElement('td');
                     newCell.textContent = cell.value;
-                    newRow.appendChild(newCell)
+                    
+                    newRow.appendChild(newCell).setAttribute('cellNum', m++)
                 })
             })
         })();
