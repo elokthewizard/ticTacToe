@@ -1,0 +1,8 @@
+table, #gameboard, tr, td {
+    border: solid;
+}
+
+td {
+    height: 3rem;
+    width: 3rem;;
+}
