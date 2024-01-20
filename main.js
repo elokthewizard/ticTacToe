@@ -117,33 +117,32 @@ ticTacToe = (() => {
                 }
             })();
 
-            // updateDisplay = (() => {
-            //     console.log(boardData);
-            //     console.log(gameTable.value);
+            (() => {
+                console.log(boardData);
 
-            //     // clear table
+                // clear table
 
-            //     while (gameTable.firstChild) {
-            //         gameTable.removeChild(gameTable.lastChild)
-            //     }
+                while (gameTable.firstChild) {
+                    gameTable.removeChild(gameTable.lastChild)
+                }
+                let l = 0;
+                boardData.forEach((row) => {
 
-            //     boardData.forEach((row) => {
-
-            //         const newRow = document.createElement('tr');
-            //         gameTable.appendChild(newRow).setAttribute('list-num', l++);
-            //         let m = 0;
+                    const newRow = document.createElement('tr');
+                    gameTable.appendChild(newRow).setAttribute('list-num', l++);
+                    let m = 0;
         
-            //         row.forEach((cell) => {
-            //             const newCell = document.createElement('td');
-            //             newCell.textContent = cell.gameSymbol;
+                    row.forEach((cell) => {
+                        const newCell = document.createElement('td');
+                        newCell.textContent = cell.gameSymbol;
         
-            //             newRow.appendChild(newCell).setAttribute('cell-num', m++)
-            //         })
-            //     })
+                        newRow.appendChild(newCell).setAttribute('cell-num', m++)
+                    })
+                })
 
-            //     // boardData.forEach((element) => gameTable.appendChild(newRow))
+                // boardData.forEach((element) => gameTable.appendChild(newRow))
                 
-            // })();
+            })();
 
             //swapPlayer
             (() => {
