@@ -10,7 +10,7 @@ ticTacToe = (() => {
                 board[i] = []; 
                 for (let j = 0; j < columns; j++) {
                     board[i].push({ 
-                        value: 0 
+                        gameSymbol: 0 
                     })
                 }
             };
@@ -33,7 +33,7 @@ ticTacToe = (() => {
 
                 row.forEach((cell) => {
                     const newCell = document.createElement('td');
-                    newCell.textContent = cell.value;
+                    newCell.textContent = cell.gameSymbol;
                     
                     newRow.appendChild(newCell).setAttribute('cell-num', m++)
                 })
@@ -53,56 +53,51 @@ ticTacToe = (() => {
 
         gameController = (() => {
 
-            updateDisplay = () => {
-                console.log(board);
-                
-            };
-
             let currentPlayer = playerList[0];
 
             playRound = (x, y) => {
                 //check for valid play
-                //(board[x][y].value !== playerList[1].gameSymbol && board[x][y].value == 0) ? board[x][y].value = currentPlayer.gameSymbol : console.log('try again');
-                board[x][y].value = currentPlayer.gameSymbol;
+                //(board[x][y].gameSymbol !== playerList[1].gameSymbol && board[x][y].gameSymbol == 0) ? board[x][y].gameSymbol = currentPlayer.gameSymbol : console.log('try again');
+                board[x][y].gameSymbol = currentPlayer.gameSymbol;
                 //check win condition
                 (() => { 
                     for (let k = 0; k < board[0].length; k++) {
                         // horizontal
                         if (
-                            board[k][0].value == currentPlayer.gameSymbol &&
-                            board[k][1].value == currentPlayer.gameSymbol &&
-                            board[k][2].value == currentPlayer.gameSymbol
+                            board[k][0].gameSymbol === currentPlayer.gameSymbol &&
+                            board[k][1].gameSymbol === currentPlayer.gameSymbol &&
+                            board[k][2].gameSymbol === currentPlayer.gameSymbol
                             ) {
                                 console.log(`${currentPlayer.name} wins!`);
                         // vertical
                         } else if (
-                            board[k][0].value == currentPlayer.gameSymbol &&
-                            board[k][0].value == currentPlayer.gameSymbol &&
-                            board[k][0].value == currentPlayer.gameSymbol
+                            board[k][0].gameSymbol === currentPlayer.gameSymbol &&
+                            board[k][0].gameSymbol === currentPlayer.gameSymbol &&
+                            board[k][0].gameSymbol === currentPlayer.gameSymbol
                             ) {
                                 console.log(`${currentPlayer.name} wins!`);
                         } else if (
-                            board[k][1].value == currentPlayer.gameSymbol &&
-                            board[k][1].value == currentPlayer.gameSymbol &&
-                            board[k][1].value == currentPlayer.gameSymbol
+                            board[k][1].gameSymbol === currentPlayer.gameSymbol &&
+                            board[k][1].gameSymbol === currentPlayer.gameSymbol &&
+                            board[k][1].gameSymbol === currentPlayer.gameSymbol
                             ) {
                                 console.log(`${currentPlayer.name} wins!`);
                         } else if (
-                            board[k][2].value == currentPlayer.gameSymbol &&
-                            board[k][2].value == currentPlayer.gameSymbol &&
-                            board[k][2].value == currentPlayer.gameSymbol
+                            board[k][2].gameSymbol === currentPlayer.gameSymbol &&
+                            board[k][2].gameSymbol === currentPlayer.gameSymbol &&
+                            board[k][2].gameSymbol === currentPlayer.gameSymbol
                             ) {
                                 console.log(`${currentPlayer.name} wins!`);
                         } else if (
-                            board[0][1].value == currentPlayer.gameSymbol &&
-                            board[1][1].value == currentPlayer.gameSymbol &&
-                            board[2][2].value == currentPlayer.gameSymbol
+                            board[0][1].gameSymbol === currentPlayer.gameSymbol &&
+                            board[1][1].gameSymbol === currentPlayer.gameSymbol &&
+                            board[2][2].gameSymbol === currentPlayer.gameSymbol
                             ) {
                                 console.log(`${currentPlayer.name} wins!`);
                         } else if (
-                            board[0][2].value == currentPlayer.gameSymbol &&
-                            board[1][1].value == currentPlayer.gameSymbol &&
-                            board[2][0].value == currentPlayer.gameSymbol
+                            board[0][2].gameSymbol === currentPlayer.gameSymbol &&
+                            board[1][1].gameSymbol === currentPlayer.gameSymbol &&
+                            board[2][0].gameSymbol === currentPlayer.gameSymbol
                             ) {
                                 console.log(`${currentPlayer.name} wins!`);
                         } else {
@@ -112,7 +107,10 @@ ticTacToe = (() => {
                         
                 })();
 
-                updateDisplay();
+                updateDisplay = (() => {
+                    console.log(board);
+                    
+                })();
 
                 //swapPlayer 
                 (() => {
@@ -125,13 +123,13 @@ ticTacToe = (() => {
 
             addEventListener('click', (e) => {
                 console.log(e.target.parentNode.getAttribute('list-num') + ' + ' + e.target.getAttribute('cell-num'));
-                if (e.target.value !== 0 && e.target.value !== playerList[1].gameSymbol) {
-                    e.target.value = currentPlayer.gameSymbol
+                if (e.target.gameSymbol !== 0 && e.target.gameSymbol !== playerList[1].gameSymbol) {
+                    e.target.gameSymbol = currentPlayer.gameSymbol
                 }
                 playRound(e.target.parentNode.getAttribute('list-num'), e.target.getAttribute('cell-num'));
             })
 
-            return { updateDisplay, playRound };
+            return { playRound };
         })();
 
     })();
