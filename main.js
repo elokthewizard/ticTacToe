@@ -1,22 +1,52 @@
 ticTacToe = (() => {
 
-    const initBoard = () => {
-        const newTable = document.createElement("table");
-        newTable.setAttribute("id","gameboard");
-        document.body.appendChild(newTable);
+    
 
-        const gameTable = document.getElementById("gameboard");
-        const boardData = [];
+    gameController = (() => {
 
-        const rows = 3;
-        const columns = 3;
-
-        for (let i = 0; i < rows; i++) {
-            boardData[i] = [];
-            for (let j = 0; j < columns; j++) {
-                boardData[i].push({ gameSymbol: '' })
+        const initBoard = () => {
+            const newTable = document.createElement("table");
+            newTable.setAttribute("id","gameboard");
+            document.body.appendChild(newTable);
+    
+            const gameTable = document.getElementById("gameboard");
+            const boardData = [];
+    
+            const rows = 3;
+            const columns = 3;
+    
+            for (let i = 0; i < rows; i++) {
+                boardData[i] = [];
+                for (let j = 0; j < columns; j++) {
+                    boardData[i].push({ gameSymbol: '' })
+                };
             };
+    
+            console.log("gameboard initialized");
+        
+            let l = 0;
+    
+            boardData.forEach((array) => {
+    
+                const newRow = document.createElement('tr');
+                gameTable.appendChild(newRow).setAttribute('list-num', l++);
+                let m = 0;
+    
+                array.forEach((cell) => {
+                    const newCell = document.createElement('td');
+                    newCell.textContent = cell.gameSymbol;
+    
+                    newRow.appendChild(newCell).setAttribute('cell-num', m++)
+                })
+            })
+            console.log("rendered game table");
+    
+            return { boardData, gameTable }
         };
+    
+        const startGame = initBoard();
+        const boardData = startGame.boardData;;
+        const gameTable = startGame.gameTable;
 
         gameTable.addEventListener('click', (e) => {
             console.log(e.target.parentNode.getAttribute('list-num') + '+' + e.target.getAttribute('cell-num'));
@@ -25,69 +55,44 @@ ticTacToe = (() => {
             }
             playRound(e.target.parentNode.getAttribute('list-num'), e.target.getAttribute('cell-num'));
         })
-        console.log("gameboard initialized");
     
-        let l = 0;
-
-        boardData.forEach((array) => {
-
-            const newRow = document.createElement('tr');
-            gameTable.appendChild(newRow).setAttribute('list-num', l++);
-            let m = 0;
-
-            array.forEach((cell) => {
-                const newCell = document.createElement('td');
-                newCell.textContent = cell.gameSymbol;
-
-                newRow.appendChild(newCell).setAttribute('cell-num', m++)
-            })
-        })
-        console.log("rendered game table");
-
-        return { boardData, gameTable }
-    };
-
-    const startGame = initBoard()
-
-    playerList = [
-        {
-            name: 'player1',
-            gameSymbol: 'X'
-        },
-        {
-            name: 'player2',
-            gameSymbol: 'O'
-        }
-    ];
-
-    gameController = (() => {
+        playerList = [
+            {
+                name: 'player1',
+                gameSymbol: 'X'
+            },
+            {
+                name: 'player2',
+                gameSymbol: 'O'
+            }
+        ];
 
         let currentPlayer = playerList[0];
         let lastPlayer = playerList[1];
 
-        playRound = (x, y) => {
+        const playRound = (x, y) => {
             
             boardData[x][y].gameSymbol = currentPlayer.gameSymbol;
             //check win condition
             (() => {
-                for (let j = 0; j < board.length; j++) {
-                    for (let k = 0; k < board[0].length; k++) {
+                for (let j = 0; j < boardData.length; j++) {
+                    for (let k = 0; k < boardData[0].length; k++) {
                         // horizontal
-                        if (k < board[0].length - 2 && board[j][k + 2]) {
+                        if (k < boardData[0].length - 2 && boardData[j][k + 2]) {
                             if (
-                                board[j][k].gameSymbol === currentPlayer.gameSymbol &&
-                                board[j][k + 1].gameSymbol === currentPlayer.gameSymbol &&
-                                board[j][k + 2].gameSymbol === currentPlayer.gameSymbol
+                                boardData[j][k].gameSymbol === currentPlayer.gameSymbol &&
+                                boardData[j][k + 1].gameSymbol === currentPlayer.gameSymbol &&
+                                boardData[j][k + 2].gameSymbol === currentPlayer.gameSymbol
                             ) {
                                 console.log(`${currentPlayer.name} wins horizontally!`);
                             }
                         }
                         // vertical
-                        if ((j < board.length - 1 && board[j + 1][k])) {
+                        if ((j < boardData.length - 2 && boardData[j + 2][k])) {
                             if (
-                                board[j][k].gameSymbol === currentPlayer.gameSymbol &&
-                                board[j + 1][k].gameSymbol === currentPlayer.gameSymbol &&
-                                board[j + 2][k].gameSymbol === currentPlayer.gameSymbol
+                                boardData[j][k].gameSymbol === currentPlayer.gameSymbol &&
+                                boardData[j + 1][k].gameSymbol === currentPlayer.gameSymbol &&
+                                boardData[j + 2][k].gameSymbol === currentPlayer.gameSymbol
                             ) {
                                 console.log(`${currentPlayer.name} wins vertically!`);
                             }
@@ -95,15 +100,15 @@ ticTacToe = (() => {
                         // diagonal
                         
                         if (
-                            board[0][0].gameSymbol === currentPlayer.gameSymbol &&
-                            board[1][1].gameSymbol === currentPlayer.gameSymbol &&
-                            board[2][2].gameSymbol === currentPlayer.gameSymbol
+                            boardData[0][0].gameSymbol === currentPlayer.gameSymbol &&
+                            boardData[1][1].gameSymbol === currentPlayer.gameSymbol &&
+                            boardData[2][2].gameSymbol === currentPlayer.gameSymbol
                         ) {
                             console.log(`${currentPlayer.name} wins! diagonally`);
                         } else if (
-                            board[0][2].gameSymbol === currentPlayer.gameSymbol &&
-                            board[1][1].gameSymbol === currentPlayer.gameSymbol &&
-                            board[2][0].gameSymbol === currentPlayer.gameSymbol
+                            boardData[0][2].gameSymbol === currentPlayer.gameSymbol &&
+                            boardData[1][1].gameSymbol === currentPlayer.gameSymbol &&
+                            boardData[2][0].gameSymbol === currentPlayer.gameSymbol
                         ) {
                             console.log(`${currentPlayer.name} wins! diagonally`);
                         };
@@ -111,33 +116,33 @@ ticTacToe = (() => {
                 }
             })();
 
-            updateDisplay = (() => {
-                console.log(boardData);
-                console.log(gameTable.value);
+            // updateDisplay = (() => {
+            //     console.log(boardData);
+            //     console.log(gameTable.value);
 
-                // clear table
+            //     // clear table
 
-                while (gameTable.firstChild) {
-                    gameTable.removeChild(gameTable.lastChild)
-                }
+            //     while (gameTable.firstChild) {
+            //         gameTable.removeChild(gameTable.lastChild)
+            //     }
 
-                boardData.forEach((row) => {
+            //     boardData.forEach((row) => {
 
-                    const newRow = document.createElement('tr');
-                    gameTable.appendChild(newRow).setAttribute('list-num', l++);
-                    let m = 0;
+            //         const newRow = document.createElement('tr');
+            //         gameTable.appendChild(newRow).setAttribute('list-num', l++);
+            //         let m = 0;
         
-                    row.forEach((cell) => {
-                        const newCell = document.createElement('td');
-                        newCell.textContent = cell.gameSymbol;
+            //         row.forEach((cell) => {
+            //             const newCell = document.createElement('td');
+            //             newCell.textContent = cell.gameSymbol;
         
-                        newRow.appendChild(newCell).setAttribute('cell-num', m++)
-                    })
-                })
+            //             newRow.appendChild(newCell).setAttribute('cell-num', m++)
+            //         })
+            //     })
 
-                // board.forEach((element) => gameTable.appendChild(newRow))
+            //     // boardData.forEach((element) => gameTable.appendChild(newRow))
                 
-            })();
+            // })();
 
             //swapPlayer
             (() => {
