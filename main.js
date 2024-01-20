@@ -1,7 +1,5 @@
 ticTacToe = (() => {
 
-    
-
     gameController = (() => {
 
         const initBoard = () => {
@@ -40,6 +38,15 @@ ticTacToe = (() => {
                 })
             })
             console.log("rendered game table");
+
+            gameTable.addEventListener('click', (e) => {
+                console.log(e.target.parentNode.getAttribute('list-num') + '+' + e.target.getAttribute('cell-num'));
+                if (e.target.gameSymbol === '' && e.target.gameSymbol !== lastPlayer.gameSymbol) {
+                    e.target.gameSymbol = currentPlayer.gameSymbol
+                }
+                playRound(e.target.parentNode.getAttribute('list-num'), e.target.getAttribute('cell-num'));
+            })
+            console.log('engaged click listener');
     
             return { boardData, gameTable }
         };
@@ -48,13 +55,7 @@ ticTacToe = (() => {
         const boardData = startGame.boardData;;
         const gameTable = startGame.gameTable;
 
-        gameTable.addEventListener('click', (e) => {
-            console.log(e.target.parentNode.getAttribute('list-num') + '+' + e.target.getAttribute('cell-num'));
-            if (e.target.gameSymbol === '' && e.target.gameSymbol !== lastPlayer.gameSymbol) {
-                e.target.gameSymbol = currentPlayer.gameSymbol
-            }
-            playRound(e.target.parentNode.getAttribute('list-num'), e.target.getAttribute('cell-num'));
-        })
+        
     
         playerList = [
             {
