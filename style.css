@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+body {
+    font-family: 'Open sans', sans-serif;
+}
+
 table, #gameboard, tr, td {
     border: solid;
 }
