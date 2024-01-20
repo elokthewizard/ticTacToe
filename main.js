@@ -73,7 +73,7 @@ ticTacToe = (() => {
                                 ) {
                                     console.log(`${currentPlayer.name} wins horizontally!`);
                                 }
-                        }
+                            }
                             // vertical
                             if ((j < board.length - 1 && board[j + 1][k])) {
                                 if (
@@ -87,7 +87,7 @@ ticTacToe = (() => {
                             // diagonal
                             
                             if (
-                                board[0][1].gameSymbol === currentPlayer.gameSymbol &&
+                                board[0][0].gameSymbol === currentPlayer.gameSymbol &&
                                 board[1][1].gameSymbol === currentPlayer.gameSymbol &&
                                 board[2][2].gameSymbol === currentPlayer.gameSymbol
                             ) {
