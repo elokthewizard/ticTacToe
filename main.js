@@ -55,6 +55,7 @@ ticTacToe = (() => {
 
             updateDisplay = () => {
                 console.log(board);
+                
             };
 
             let currentPlayer = playerList[0];
@@ -123,11 +124,11 @@ ticTacToe = (() => {
             };
 
             addEventListener('click', (e) => {
-                console.log(e.target)
+                console.log(e.target.parentNode.getAttribute('list-num') + ' + ' + e.target.getAttribute('cell-num'));
                 if (e.target.value !== 0 && e.target.value !== playerList[1].gameSymbol) {
                     e.target.value = currentPlayer.gameSymbol
                 }
-                playRound(e.target.getAttribute('cell-num'), e.target.innerText);
+                playRound(e.target.parentNode.getAttribute('list-num'), e.target.getAttribute('cell-num'));
             })
 
             return { updateDisplay, playRound };
