@@ -22,14 +22,16 @@ header h2 {
 table {
     display: grid;
     width: minmax(min-content, auto);
-justify-content: center;
+    justify-content: center;
+    
 }
 
-tr, td {
+td {
     border: solid;
 }
 
 td {
     height: 3rem;
     width: 3rem;;
+    text-align: center;
 }
